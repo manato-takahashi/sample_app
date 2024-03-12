@@ -23,8 +23,10 @@
         </nav>
       </div>
     </header>
+    <%= render 'layouts/header' %>
     <div class="container">
       <%= yield %>
+      <%= render 'layouts/footer' %>
     </div>
   </body>
 </html>
