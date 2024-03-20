@@ -10,4 +10,9 @@ module SessionsHelper
       @current_user ||= User.find_by(id: session[:user_id]) # ||= は += などと同じ意味
     end
   end
+
+  # ユーザーがログインしていればtrue, そうでないならfalseを返す
+  def logged_in?
+    !current_user.nil?
+  end
 end
