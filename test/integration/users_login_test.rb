@@ -5,10 +5,12 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     @user = users(:michael)
   end
 
+  # 無効な情報でログインしようとするとエラーとなることを検証するテスト
   test "Login with invalid information" do
     get login_path
     assert_template 'sessions/new'
-    post login_path, params: { session: { email: "", password: "" } }
+    post login_path, params: { session: { email: @user.email,
+                               password: "invalid" } }
     assert_response :unprocessable_entity
     assert_template 'sessions/new'
     assert_not flash.empty?
@@ -16,6 +18,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert flash.empty?
   end
 
+  # 有効な情報でログインしようとすると通ることを検証するテスト
   test "login with valid information" do
     post login_path, params: { session: { email: @user.email,
                                           password: 'password' } }
